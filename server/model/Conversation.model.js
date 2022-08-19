@@ -7,6 +7,6 @@ const conversationSchema = new mongoose.Schema({
     text: String,
     createdAt: String
   }]
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("conversations", conversationSchema);

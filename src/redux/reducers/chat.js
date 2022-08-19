@@ -47,6 +47,20 @@ export function getConversations(userId) {
   }
 }
 
+export function getUpdatedConversations(userId, friendId) {
+  return (dispatch) => {
+    return axios(`/api/v1/conversations/${userId}/${friendId}`).then(({ data }) => {
+      const conversations = data.conversations.reduce((acc, rec) => {
+        return { ...acc, [rec._id]: rec };
+      }, {});
+      dispatch({
+        type: GET_CONVERSATIONS,
+        conversations,
+      });
+    });
+  };
+}
+
 export function getUsers() {
   return (dispatch) => {
     return axios('/api/v1/users')

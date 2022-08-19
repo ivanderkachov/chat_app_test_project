@@ -103,8 +103,30 @@ app.get("/api/v1/users", async (req, res) => {
 app.get("/api/v1/conversations/:userId", async (req, res) => {
   const { userId } = req.params
   try {
-    const conversations = await Conversations.find({members: { $in: [userId]}}).exec()
+    const conversations = await Conversations.find({members: { $in: [userId]}}).sort({ updatedAt: 'desc' }).exec()
     res.json({status: 'ok', conversations})
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.get("/api/v1/conversations/:userId/:friendId", async (req, res) => {
+  const { userId, friendId } = req.params
+  try {
+    const conversationExist = await Conversations.find({members: { $all: [userId, friendId]}}).exec()
+    if (conversationExist.length !== 0) {
+      const conversations = await Conversations.find({members: { $in: [userId]}}).sort({ updatedAt: 'desc' }).exec()
+      res.json({status: 'ok', conversations})
+    }
+    else {
+      const newConversation = await new Conversations({
+        members: [userId, friendId],
+        messages:[]
+      })
+      await newConversation.save()
+      const conversations = await Conversations.find({members: { $in: [userId]}}).sort({ updatedAt: 'desc' }).exec()
+      res.json({status: 'New conversation added', conversations})
+    }
   } catch (err) {
     console.log(err)
   }
@@ -115,7 +137,7 @@ app.post("/api/v1/messages/:conversationId", async (req, res) => {
   const message = req.body
   try {
     await Conversations.findOneAndUpdate({ _id: conversationId}, { $push: { messages: message }})
-    const conversations = await Conversations.find({members: { $in: [message.sender]}}).exec()
+    const conversations = await Conversations.find({members: { $in: [message.sender]}}).sort({ updatedAt: 'desc' }).exec()
     res.json({status: 'ok', conversations})
   } catch (err) {
     console.log(err)
@@ -132,7 +154,7 @@ app.post("/api/v1/messages/cn/:conversationId/:userId", async (req, res) => {
   const newMessage = { ...message, text: response}
     try {
     await Conversations.findOneAndUpdate({ _id: conversationId}, { $push: { messages: newMessage }})
-    const conversations = await Conversations.find({members: { $in: [userId]}}).exec()
+    const conversations = await Conversations.find({members: { $in: [userId]}}).sort({ updatedAt: 'desc' }).exec()
     res.json({status: 'ok', conversations})
   } catch (err) {
     console.log(err)

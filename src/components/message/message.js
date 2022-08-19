@@ -1,5 +1,5 @@
 import React from "react";
-import { format } from "timeago.js"
+import dateFormat from "dateformat";
 
 
 import './message.css'
@@ -13,7 +13,7 @@ const Message = ({ message, time, own }) => {
         <img className="messageImg" src={Image} alt=""/>
         <p className="messageText">{message}</p>
       </div>
-      <div className="messageBottom">{format(time)}</div>
+      <div className="messageBottom">{dateFormat(time, "m/d/yy, h:MM TT")}</div>
     </div>
   )
 }

@@ -5,21 +5,27 @@
 }
 
 .chat {
-  height: calc(100vh-70px);
+  height: 100vh;
   display: flex;
 
 }
 .chatMenu {
-  flex: 3.5
+  flex: 3.5;
+  border: 1px solid #d7d7d7;
+
+
 }
-.chatMenuInput {
-  width: 90%;
-  padding: 10px 0;
-  border: none;
-  border-bottom: 1px solid gray;
+.chatMenuHead {
+  display: flex;
+  align-items: center;
+  height: 10%;
+  font-size: 22px;
+  margin-left: 10px;
+  color: #5faccf
 }
 .chatBox {
-  flex: 5.5
+  flex: 5.5;
+  background-color: #fafafa;
 }
 .chatBoxTop{
   height: 100%;
@@ -29,45 +35,110 @@
 .chatBoxWrapper{
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
   justify-content: space-between;
-  position: relative;
+  border: 1px solid #d7d7d7;
 }
 .chatBoxBottom{
   margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #f5f5f5;
+  border: 1px solid #d7d7d7;
+  height: 20%
+}
+.chatBoxTextArea {
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 .chatMessageInput{
-  width: 80%;
-  height: 90px;
-  padding: 10px;
+  width: 85%;
+  padding: 10px 10px;
+  border: 1px solid #d7d7d7;
+  border-radius: 18px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  /* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); */
 }
-.chatSubmitButton{
-  width: 70px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: teal;
-  color: white;
+.chatMessageInput:focus {
+  outline: none;
 }
 
+.chatSubmitButton{
+  display: flex;
+  width: 50px;
+  height: 35px;
+  background-color: #f5f5f5;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+.chatButtonPaint {
+  width: 50px;
+  height: 50px;
+  transform: rotate(90deg);
+  color: grey;
+}
 .chatOnline {
-  flex: 3
+  flex: 3.5
 }
 .chatMenuWrapper, .chatBoxWrapper, .chatOnlineWrapper {
-  padding: 10px;
-  height: 95vh
+
+  height: 100vh;
+
 }
 
 .noConversationText {
-  position: absolute;
   top: 10%;
   font-size: 50px;
   color: rgb(224, 220, 220);
   cursor: default;
 }
+.findProcess {
+  color: rgb(224, 220, 220);
+}
+/* .chatMenuHeader {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid #d7d7d7;
+  background-color: #f5f5f5
+}
+.chatMenuUserInfo {
+  display: flex;
+  align-items: center;
+}
+.chatMenuUserImg {
+  padding-top: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+.chatMenuUserName {
+  font-weight: 500;
+  font-size: large;
+} */
+/* .chatMenuInput {
+  width: 90%;
+  padding: 10px 10px;
+  border: 1px solid #d7d7d7;
+  border-radius: 18px;
+  margin-left: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.chatMenuInput:focus {
+  outline: none;
+} */
+
 /* @media screen and (max-width: 768px) {
   .chatMenu {
     flex: 1;

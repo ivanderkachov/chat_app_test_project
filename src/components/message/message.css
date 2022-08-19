@@ -14,21 +14,24 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
+  margin-left: 10px
 }
 .messageText {
   padding: 10px;
-  border-radius: 20px;
-  background-color: rgb(214, 207, 207);
-  max-width: 300px;
+  border-radius: 25px;
+  background-color: #3c4154;
+  color: white;
+  max-width: 600px;
 }
 .messageBottom {
   font-size: 12px;
+  margin-left: 60px
 
 }
 .message.own {
   align-items: flex-end
 }
 .message.own .messageText{
-  background-color: rgb(56, 56, 255);
-  color: white;
+  background-color: #e0e0e0;
+  color: #616161;
 }

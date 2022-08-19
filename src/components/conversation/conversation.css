@@ -1,11 +1,23 @@
-.conversation {
+.conversationContainer {
   display: flex;
   align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 4px;
+  margin-top: 10px;
   cursor: pointer;
-  margin-top: 20px;
+  height: 60px;
+  border-bottom: 1px solid #d7d7d7;
 }
-.conversation:hover {
+
+.conversationData {
+  display: flex;
+  align-items: center;
+}
+.conversationText {
+  display: flex;
+  flex-direction: column;
+}
+.conversationContainer:hover {
   background-color: rgb(212, 202, 202);
 }
 .conversationImg {
@@ -18,3 +30,18 @@
 .conversationName {
   font-weight: 500;
 }
+.conversationLastMessage {
+  font-weight: 100;
+  font-size: small;
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.conversationLastMessageDate {
+  font-weight: 200;
+  font-size: small;
+  white-space: nowrap;
+}
+
