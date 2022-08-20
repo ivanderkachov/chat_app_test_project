@@ -1,8 +1,10 @@
 
 const express = require('express')
 const http = require('http')
+const cors = require('cors')
 const config = require('./config')
 const axios = require('axios')
+const cookieParser = require("cookie-parser");
 const mongooseService = require('./services/mongoose')
 const Users = require('./model/Users.model')
 const Conversations = require('./model/Conversation.model')
@@ -11,7 +13,18 @@ const app = express();
 const server = http.createServer(app)
 const router = express.Router()
 
+
+
+
 const port = config.port || 8090
+
+
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions))
 
 mongooseService.connect(config.mongoURL)
 
@@ -87,9 +100,35 @@ router.get('/', (req,res) => {
 app.use(router)
 app.use(express.json())
 
+
+
 app.get("/api/v1/info", (req, res) => {
   res.json({ status: "ok" });
 });
+
+app.post("/api/v1/join", async (req, res) => {
+  const { isReg } = req.body
+  if (isReg) {
+    try {
+      const user = await Users.findAndValidateUser(req.body);
+      // res.cookie("userData", JSON.stringify(user), { maxAge: 1000 * 60 * 60 * 48 });
+      res.status(200).json({ status: "User is added", user });
+    } catch (err) {
+      console.log(err);
+      res.status(300).json({ status: `Incorrect registration data ${err}` });
+    }
+  } else {
+    try {
+      const user = await Users.findAndValidateUser(req.body);
+      // res.cookie("userData", JSON.stringify(user), { maxAge: 1000 * 60 * 60 * 48 });
+      res.status(200).json({ status: "User is login", user });
+    } catch (err) {
+      console.log(err);
+      res.status(300).json({ status: `Incorrect login data ${err}` });
+    }
+  }
+
+})
 
 app.get("/api/v1/users", async (req, res) => {
   try {

@@ -8,6 +8,7 @@ import './App.css';
 
 import Login from './pages/login/login';
 import Chat from './pages/chat/chat';
+import LoginRoute from "./loginRoute";
 
 function App() {
   return (

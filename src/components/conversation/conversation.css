@@ -29,19 +29,21 @@
 }
 .conversationName {
   font-weight: 500;
+  font-size: larger
 }
 .conversationLastMessage {
   font-weight: 100;
-  font-size: small;
+  font-size: large;
+  color: grey;
   display: inline-block;
-  width: 180px;
+  max-width: 400px;
   white-space: nowrap;
-  overflow: hidden !important;
+  overflow: hidden ;
   text-overflow: ellipsis;
 }
 .conversationLastMessageDate {
   font-weight: 200;
-  font-size: small;
+  font-size: smaller;
   white-space: nowrap;
 }
 

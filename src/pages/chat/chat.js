@@ -7,16 +7,15 @@ import {
   postMessageCN,
   getUpdatedConversations
 } from "../../redux/reducers/chat";
-import Image from "../../images/logo192.png";
 
 import "./chat.css";
 
 import Conversation from "../../components/conversation/conversation";
 import Message from "../../components/message/message";
 import ConversationHeader from "../../components/conversationHeader/conversationHeader";
-import ChatOnline from "../../components/chatOnline/chatonline";
 import Usercard from "../../components/usercard/usercard";
 import ChatMenuHeader from "../../components/chatMenuHeader/chatMenuHeader";
+import ChatBoxBottom from "../../components/chatBoxBottom/chatBoxBottom";
 
 const Chat = () => {
   const user = useSelector((store) => store.chat.user);
@@ -24,8 +23,12 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (Object.keys(user).length !== 0) {
     dispatch(getConversations(user._id));
+    }
   }, [user._id, addMessage]);
+
+  //  user._id, addMessage;
 
   useEffect(() => {
     dispatch(getUsers());
@@ -41,25 +44,29 @@ const Chat = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newMessage = {
-      sender: user._id,
-      text: message,
-      createdAt: new Date().toISOString(),
-    };
-    const friendId = currentConversation.members.find(
-      (member) => member !== user._id
-    );
-    const newMessageCN = {
-      sender: friendId,
-      text: "",
-      createdAt: new Date().toISOString(),
-    };
-    dispatch(postMessage(currentConversation._id, newMessage));
-    setTimeout(() => {
-      dispatch(postMessageCN(currentConversation._id, user._id, newMessageCN));
-    }, 5000);
-    setMessage("");
-    setAddMessage(newMessage);
+    if (message.trim() !== '') {
+      const newMessage = {
+        sender: user._id,
+        text: message,
+        createdAt: new Date().toISOString(),
+      };
+      const friendId = currentConversation.members.find(
+        (member) => member !== user._id
+      );
+      const newMessageCN = {
+        sender: friendId,
+        text: "",
+        createdAt: new Date().toISOString(),
+      };
+      dispatch(postMessage(currentConversation._id, newMessage));
+      setTimeout(() => {
+        dispatch(
+          postMessageCN(currentConversation._id, user._id, newMessageCN)
+        );
+      }, 5000);
+      setMessage("");
+      setAddMessage(newMessage);
+    }
   };
 
   const handleChange = (e) => {
@@ -84,18 +91,6 @@ const Chat = () => {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <ChatMenuHeader user={user} handleChange={handleChange} findUsers={findUsers} />
-            {/* <div className="chatMenuHeader">
-              <div className="chatMenuUserInfo">
-                <img className="chatMenuUserImg" src={Image} alt="" />
-                <span className="chatMenuUserName">{user.name}</span>
-              </div>
-              <input
-                placeholder="Search or start new chat"
-                className="chatMenuInput"
-                value={findUsers}
-                onChange={handleChange}
-              />
-            </div> */}
             {!findUsers ? (
               <>
                 <div className="chatMenuHead"> Chats </div>
@@ -160,34 +155,7 @@ const Chat = () => {
                     }
                   )}
                 </div>
-                <div className="chatBoxBottom">
-                  <div className="chatBoxTextArea">
-                    <textarea
-                      type="text"
-                      rows="3"
-                      className="chatMessageInput"
-                      value={message}
-                      placeholder="Type your message"
-                      onChange={(e) => {
-                        setMessage(e.target.value);
-                      }}
-                    />
-                    <button
-                      type="button"
-                      className="chatSubmitButton"
-                      onClick={handleSubmit}
-                    >
-                      <svg
-                        className="chatButtonPaint"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+                <ChatBoxBottom setMessage={setMessage} handleSubmit={handleSubmit} message={message} />
               </>
             ) : (
               <span className="noConversationText">
@@ -196,14 +164,6 @@ const Chat = () => {
             )}
           </div>
         </div>
-        {/* <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-            <ChatOnline />
-          </div>
-        </div> */}
       </div>
     </>
   );

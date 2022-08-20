@@ -18,13 +18,14 @@
 }
 .messageText {
   padding: 10px;
+  font-size: large;
   border-radius: 25px;
   background-color: #3c4154;
   color: white;
-  max-width: 600px;
+  max-width: 700px;
 }
 .messageBottom {
-  font-size: 12px;
+  font-size: smaller;
   margin-left: 60px
 
 }

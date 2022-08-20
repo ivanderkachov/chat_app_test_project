@@ -2,19 +2,26 @@ import axios from "axios";
 
 const GET_CONVERSATIONS = 'GET_CONVERSATIONS'
 const GET_USERS = 'GET_USERS'
+const USER_LOGIN = 'USER_LOGIN'
+
+    // _id: "62fc9ebf16a6a499bb086842",
+    // name: "John",
+    // email: "test@gmail.com"
 
 const initialState = {
-  user: {
-    _id: "62fc9ebf16a6a499bb086842",
-    name: "John",
-    email: "test@gmail.com"
-  },
+  user: {},
   users: {},
   conversations: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case USER_LOGIN: {
+      return {
+        ...state,
+        user: action.user,
+      };
+    }
     case GET_CONVERSATIONS: {
       return {
         ...state,
@@ -29,6 +36,31 @@ export default (state = initialState, action) => {
     }
     default:
       return state;
+  }
+}
+
+export function logIn(form) {
+  return (dispatch) => {
+    return axios.post('/api/v1/join',
+      { ...form },
+      { headers: { "Content-type": "application/json" } }
+      )
+      .then(({ data }) => {
+        const user = data.user
+        localStorage.setItem("userData", JSON.stringify(user));
+        dispatch({
+          type: USER_LOGIN,
+          user,
+        });
+      })
+      .catch(({response}) => {
+        alert(response.data.status)
+        dispatch({
+          type: USER_LOGIN,
+          user: {},
+        });
+      })
+
   }
 }
 
