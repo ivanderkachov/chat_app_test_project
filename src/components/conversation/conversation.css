@@ -41,6 +41,16 @@
   overflow: hidden ;
   text-overflow: ellipsis;
 }
+.conversationLastMessageFriend {
+  font-weight: 100;
+  font-size: large;
+  color: red;
+  display: inline-block;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden ;
+  text-overflow: ellipsis;
+}
 .conversationLastMessageDate {
   font-weight: 200;
   font-size: smaller;

@@ -3,6 +3,7 @@ import axios from "axios";
 const GET_CONVERSATIONS = 'GET_CONVERSATIONS'
 const GET_USERS = 'GET_USERS'
 const USER_LOGIN = 'USER_LOGIN'
+const USER_LOGOUT = 'USER_LOGOUT'
 
     // _id: "62fc9ebf16a6a499bb086842",
     // name: "John",
@@ -20,6 +21,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: action.user,
+      };
+    }
+    case USER_LOGOUT: {
+      return {
+        ...state,
+        user: action.user,
+        users: action.users,
+        conversations: action.conversations
       };
     }
     case GET_CONVERSATIONS: {
@@ -61,6 +70,14 @@ export function logIn(form) {
         });
       })
 
+  }
+}
+export function logOut() {
+  return {
+    type: USER_LOGOUT,
+    user: {},
+    users: {},
+    conversations: {}
   }
 }
 

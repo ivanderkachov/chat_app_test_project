@@ -13,8 +13,10 @@
   flex: 3.5;
   border: 1px solid #d7d7d7;
   max-width: 600px;
-
+  height: 100%;
+  overflow-y: scroll;
 }
+
 .chatMenuHead {
   display: flex;
   align-items: center;

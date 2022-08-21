@@ -37,6 +37,7 @@ const Chat = () => {
   const [currentConversation, setCurrentConversation] = useState(null);
   const [message, setMessage] = useState("");
   const [findUsers, setFindUsers] = useState('');
+  const [divToggle, setDivToggle] = useState(null)
 
   const users = useSelector((store) => store.chat.users);
   const conversations = useSelector((store) => store.chat.conversations);
@@ -83,7 +84,7 @@ const Chat = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [conversations, currentConversation]);
+  }, [conversations, currentConversation, user]);
 
   return (
     <>
@@ -97,16 +98,22 @@ const Chat = () => {
                 {Object.entries(conversations).map((conversation) => {
                   return (
                     <div
+                      ref={scrollRef}
                       key={conversation[0]}
                       onClick={() => {
                         setCurrentConversation(conversation[1]);
-                        setMessage('')
+                        setMessage("");
+                        setDivToggle(conversation[1]);
                       }}
                     >
-                      <Conversation
-                        conversation={conversation[1]}
-                        user={user}
-                      />
+                     
+                        <Conversation
+                          conversation={conversation[1]}
+                          user={user}
+                          toggle={divToggle}
+                          setDivToggle={setDivToggle}
+                        />
+
                     </div>
                   );
                 })}

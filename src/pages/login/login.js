@@ -22,6 +22,8 @@ const Login = () => {
   const handleLoginButtonClick = () => {
     dispatch(logIn(form))
     setForm({ ...form, name: "", email: "", password: ""})
+    setToggle(false)
+    setForm({ name: "", email: "", password: "", isReg: false });
   }
   const handleTypeButtonClick = () => {
     setToggle(!toggle);
@@ -50,7 +52,7 @@ const Login = () => {
             </div>
           ) : (
             <div className="loginFormButtonField">
-              <Link onClick={handleLoginButtonClick} to={"/Chat"}>
+              <Link onClick={handleLoginButtonClick} to={"/"}>
                 <button type="button">Join</button>
               </Link>
               <Link className="loginFormLink" onClick={handleTypeButtonClick} to={'/'}>
