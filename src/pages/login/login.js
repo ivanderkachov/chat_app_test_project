@@ -28,7 +28,7 @@ const Login = () => {
     setForm({ ...form, isReg: !form.isReg });
 
   }
-  console.log(toggle, form.isReg);
+
   return (
     <div className="login">
       <div className="loginForm">

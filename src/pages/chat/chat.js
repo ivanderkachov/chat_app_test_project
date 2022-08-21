@@ -147,6 +147,7 @@ const Chat = () => {
                         <div ref={scrollRef} key={message._id}>
                           <Message
                             message={message.text}
+                            sender={message.sender}
                             time={message.createdAt}
                             own={message.sender === user._id ? true : false}
                           />
