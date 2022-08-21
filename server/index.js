@@ -8,23 +8,20 @@ const cookieParser = require("cookie-parser");
 const mongooseService = require('./services/mongoose')
 const Users = require('./model/Users.model')
 const Conversations = require('./model/Conversation.model')
-
 const app = express();
 const server = http.createServer(app)
 const router = express.Router()
 
 
-
-
 const port = config.port || 8090
 
 
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions))
+// const corsOptions = {
+//   origin: "*",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
+// app.use(cors(corsOptions))
 
 mongooseService.connect(config.mongoURL)
 

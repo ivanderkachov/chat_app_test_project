@@ -17,10 +17,15 @@ import Usercard from "../../components/usercard/usercard";
 import ChatMenuHeader from "../../components/chatMenuHeader/chatMenuHeader";
 import ChatBoxBottom from "../../components/chatBoxBottom/chatBoxBottom";
 
+
+let socket
+
 const Chat = () => {
   const user = useSelector((store) => store.chat.user);
   const [addMessage, setAddMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (Object.keys(user).length !== 0) {
@@ -28,11 +33,13 @@ const Chat = () => {
     }
   }, [user._id, addMessage]);
 
-  //  user._id, addMessage;
+    const conversations = useSelector((store) => store.chat.conversations);
 
   useEffect(() => {
     dispatch(getUsers());
+
   }, []);
+
 
   const [currentConversation, setCurrentConversation] = useState(null);
   const [message, setMessage] = useState("");
@@ -40,9 +47,16 @@ const Chat = () => {
   const [divToggle, setDivToggle] = useState(null)
 
   const users = useSelector((store) => store.chat.users);
-  const conversations = useSelector((store) => store.chat.conversations);
+
   const scrollRef = useRef();
 
+
+  const handleDivClick = (conversation) => {
+    setCurrentConversation(conversation);
+    setMessage("");
+    setDivToggle(conversation);
+
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim() !== '') {
@@ -100,13 +114,9 @@ const Chat = () => {
                     <div
                       ref={scrollRef}
                       key={conversation[0]}
-                      onClick={() => {
-                        setCurrentConversation(conversation[1]);
-                        setMessage("");
-                        setDivToggle(conversation[1]);
-                      }}
+                      onClick={() => {handleDivClick(conversation[1])}}
                     >
-                     
+
                         <Conversation
                           conversation={conversation[1]}
                           user={user}
